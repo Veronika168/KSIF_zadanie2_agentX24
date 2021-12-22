@@ -1,7 +1,10 @@
 package ksif.r2021.zadanie2.student;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static ksif.r2021.zadanie2.student.GFG.printAllKLength;
 
 public class Solver {
 
@@ -20,7 +23,13 @@ public class Solver {
         List<String> words = DictionaryNode.readDictionaryWords("dictionary_5000.txt");
         DictionaryNode root = DictionaryNode.loadDictionary(words);
 
-        List<String> kSet = Arrays.asList("abcd", "aaaa", "bbbb", "cccc"); // keys
+        List<String> kSet = new ArrayList<>();
+
+        char[] set1 = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        int k = 4;
+        printAllKLength(set1, k, kSet);
+
+
 
         for (String kStr: kSet) {
             VigenereCipher vc = new VigenereCipher(kStr);
@@ -28,26 +37,29 @@ public class Solver {
             double score1 = fit.evaluate(tmp);
             if (score1 < scoreBi) {
                 scoreBi = score1;
-                resBi = score1 + " key: " + kStr + ", text: " + tmp;
+                resBi = tmp;
             }
             double score2 = root.evaluate(tmp, 3 , 8); // ??? magicke cisla
             if (score2 > scoreDict) {
                 scoreDict = score2;
-                resDict = score2 + " key: " + kStr + ", text: " + tmp;
+                resDict = tmp;
 
             }
         }
-        System.out.println("2-gram: " + resBi);
-        System.out.println("Dictionary: " + resDict);
+        // System.out.println("2-gram: " + resBi);
+        // System.out.println("Dictionary: " + resDict);
         retVal = resBi;
+        // System.out.println("RetVal: " + retVal);
         return retVal;
     }
 
     public Integer[] getPermutation(String key) {
         Integer[] perm = new Integer[key.length()];
-        //
-        //   ...     
-        //
+
+        for (int i = 0; i < key.length(); i++) {
+            perm[i] = key.charAt(i) - 'a';
+        }
+        // System.out.println("perm: " + Arrays.toString(perm));
         return perm;
     }
 
@@ -62,10 +74,10 @@ public class Solver {
     public String solveSubstitution(String ct2WithoutT) {
         String retVal = null;
         //
-        //   ...     
+        //   ...
         //
         return retVal;
     }
 
-    
+
 }
