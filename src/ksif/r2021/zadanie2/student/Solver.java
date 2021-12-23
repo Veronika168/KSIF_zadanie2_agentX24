@@ -1,7 +1,11 @@
 package ksif.r2021.zadanie2.student;
 
+import ksif.r2021.zadanie2.student.GA.GeneticAlgorithm;
+import ksif.r2021.zadanie2.student.GA.Key;
+import ksif.r2021.zadanie2.student.GA.MonoalphabeticCipher;
+import ksif.r2021.zadanie2.student.GA.MonoalphabeticKey;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static ksif.r2021.zadanie2.student.GFG.printAllKLength;
@@ -71,9 +75,12 @@ public class Solver {
 
     public String solveSubstitution(String ct2WithoutT) {
         String retVal = null;
-        //
-        //   ...
-        //
+        List<Key> bestKeys = new ArrayList<>();
+        GeneticAlgorithm g = new GeneticAlgorithm(20,200, ct2WithoutT, new MonoalphabeticCipher(),
+                new L1BigramDistance(), bestKeys);
+        g.start();
+        System.out.println(bestKeys.get(0));
+        //return bestKeys.get(0);
         return retVal;
     }
 

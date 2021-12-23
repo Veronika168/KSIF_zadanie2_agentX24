@@ -1,8 +1,10 @@
 package ksif.r2021.zadanie2.student;
 
+import ksif.r2021.zadanie2.student.GA.Fitness;
+
 import java.io.*;
 
-public class L1BigramDistance {
+public class L1BigramDistance extends Fitness {
     private double ref[][];
 
     public L1BigramDistance() {
@@ -44,5 +46,10 @@ public class L1BigramDistance {
         }
 
         return null;
+    }
+
+    @Override
+    public double evaluateFitness(String in) {
+        return 0;
     }
 }
