@@ -39,7 +39,7 @@ public class Main {
             // porovname vysledok
             String tRemoved = s.solveTransposition(ct2, perm);
             System.out.println("3b - " + withoutT.equals(tRemoved));
-            // 4. 
+            // 4.
             // desifrujeme druhu cast zlozenej sifry
             // porovname vysledok
             String pt2cand = s.solveSubstitution(tRemoved);

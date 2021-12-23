@@ -9,10 +9,9 @@ import static ksif.r2021.zadanie2.student.GFG.printAllKLength;
 public class Solver {
 
     public String solveVigenere(String ct1) {
+
         String retVal = null;
-        // hint: hodnotit bez konca, t.j. kluca
-        //   ...     
-        //
+
         L1BigramDistance fit = new L1BigramDistance();
         double scoreBi = Double.MAX_VALUE;
         double scoreDict = 0;
@@ -28,7 +27,6 @@ public class Solver {
         char[] set1 = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         int k = 4;
         printAllKLength(set1, k, kSet);
-
 
 
         for (String kStr: kSet) {
@@ -48,7 +46,8 @@ public class Solver {
         }
         // System.out.println("2-gram: " + resBi);
         // System.out.println("Dictionary: " + resDict);
-        retVal = resBi;
+        if(resBi == resDict)
+            retVal = resBi;
         // System.out.println("RetVal: " + retVal);
         return retVal;
     }
@@ -59,15 +58,14 @@ public class Solver {
         for (int i = 0; i < key.length(); i++) {
             perm[i] = key.charAt(i) - 'a';
         }
-        // System.out.println("perm: " + Arrays.toString(perm));
+
         return perm;
     }
 
     public String solveTransposition(String ct2, Integer[] key) {
         String retVal = null;
-        //
-        //   ...     
-        //
+        SingleColumnarTransposition sct = new SingleColumnarTransposition(key);
+        retVal = sct.decrypt(ct2);
         return retVal;
     }
 
