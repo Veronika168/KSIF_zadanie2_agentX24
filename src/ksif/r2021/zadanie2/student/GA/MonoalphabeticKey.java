@@ -39,6 +39,11 @@ public class MonoalphabeticKey implements Key {
     }
 
     @Override
+    public String getKey() {
+        return Arrays.toString(key);
+    }
+
+    @Override
     public Key swapPart() {
         int len = key.length;
         Character[] out = new Character[len];

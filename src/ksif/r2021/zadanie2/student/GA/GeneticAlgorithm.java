@@ -34,7 +34,7 @@ public class GeneticAlgorithm {
             // to change
             List<Key> work = new ArrayList<>();
             work.addAll(selBest(pop, Arrays.asList(2, 1, 1)));
-            work.addAll(selTourn(pop, (2 * part) - 4));
+            work.addAll(selTourn(pop, (populationSize - part) - 4));
             work = crossOrd(work, 0.5f, true);
             work = swapGen(work, 0.25f);
             work = invOrd(work, 0.1f);
@@ -162,7 +162,8 @@ public class GeneticAlgorithm {
         if (rate > 1) { rate = 1; }
 
         List<Key> newPop = new ArrayList<>();
-        for (int i = 0, j = 0; i <pop.size() - 1; i++) {
+        int j = 0;
+        for (int i = 0; i < pop.size() - 1; i++) {
             float rndVal = rnd.nextFloat();
             if(rndVal < rate) { // passed, X is called
                 if (rndParents) {
@@ -171,9 +172,9 @@ public class GeneticAlgorithm {
                     j = i + 1;
                     i++;
                 }
-                List<Key> children = newPop.get(i).crossOrd(newPop.get(j));
-                newPop.set(i, children.get(0));
-                newPop.set(j, children.get(1));
+                List<Key> children = pop.get(i).crossOrd(pop.get(j));
+                newPop.add(children.get(0));
+                newPop.add(children.get(1));
             }
         }
         return newPop;

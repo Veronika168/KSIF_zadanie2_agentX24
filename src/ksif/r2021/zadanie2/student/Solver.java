@@ -3,9 +3,9 @@ package ksif.r2021.zadanie2.student;
 import ksif.r2021.zadanie2.student.GA.GeneticAlgorithm;
 import ksif.r2021.zadanie2.student.GA.Key;
 import ksif.r2021.zadanie2.student.GA.MonoalphabeticCipher;
-import ksif.r2021.zadanie2.student.GA.MonoalphabeticKey;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static ksif.r2021.zadanie2.student.GFG.printAllKLength;
@@ -36,7 +36,7 @@ public class Solver {
         for (String kStr: kSet) {
             VigenereCipher vc = new VigenereCipher(kStr);
             String tmp = vc.decrypt(ct1);
-            double score1 = fit.evaluate(tmp);
+            double score1 = fit.evaluateFitness(tmp);
             if (score1 < scoreBi) {
                 scoreBi = score1;
                 resBi = tmp;
@@ -76,13 +76,16 @@ public class Solver {
     public String solveSubstitution(String ct2WithoutT) {
         String retVal = null;
         List<Key> bestKeys = new ArrayList<>();
-        GeneticAlgorithm g = new GeneticAlgorithm(20,200, ct2WithoutT, new MonoalphabeticCipher(),
+        MonoalphabeticCipher mc = new MonoalphabeticCipher();
+        GeneticAlgorithm g = new GeneticAlgorithm(20,200, ct2WithoutT, mc,
                 new L1BigramDistance(), bestKeys);
         g.start();
-        System.out.println(bestKeys.get(0));
-        //return bestKeys.get(0);
+        System.out.println(bestKeys.get(0).getKey());
+
+        for (Key key : bestKeys) {System.out.println("key: " +  key.getKey() + " pt2cand: " + mc.decrypt(key, ct2WithoutT));}
+        retVal = mc.decrypt(bestKeys.get(0), ct2WithoutT);
         return retVal;
-    }
+}
 
 
 }
