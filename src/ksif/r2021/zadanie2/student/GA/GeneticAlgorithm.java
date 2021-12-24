@@ -34,7 +34,7 @@ public class GeneticAlgorithm {
             // to change
             List<Key> work = new ArrayList<>();
             work.addAll(selBest(pop, Arrays.asList(2, 1, 1)));
-            work.addAll(selTourn(pop, (populationSize - part) - 4));
+            work.addAll(selTourn(pop, populationSize - part - 4));
             work = crossOrd(work, 0.5f, true);
             work = swapGen(work, 0.25f);
             work = invOrd(work, 0.1f);
@@ -52,7 +52,7 @@ public class GeneticAlgorithm {
                 k.setScore(score);
             }
         }
-        bestResults.addAll(selBest(pop, Arrays.asList(1, 1, 1)));
+        bestResults.addAll(selBest(pop, Arrays.asList(1, 1, 1, 1, 1, 1, 1, 1, 1)));
     }
 
     private List<Key> initPop() {
@@ -81,17 +81,21 @@ public class GeneticAlgorithm {
 
     private List<Key> selTourn(List<Key> pop, int count) {
         List<Key> newPop = new ArrayList<>();
+        List<Key> oldPop = new ArrayList<>(pop);
         for (int t = 0; t < count; t++) {
-            int a = rnd.nextInt(pop.size());
-            int b = rnd.nextInt(pop.size());
+            if (oldPop.size() <= 0) return newPop;
+            int a = rnd.nextInt(oldPop.size());
+            int b = rnd.nextInt(oldPop.size());
 
-            Key aKey = pop.get(a);
-            Key bKey = pop.get(b);
+            Key aKey = oldPop.get(a);
+            Key bKey = oldPop.get(b);
 
             if(aKey.getScore() < bKey.getScore()) {
                 newPop.add(aKey);
+                oldPop.remove(aKey);
             } else {
                 newPop.add(bKey);
+                oldPop.remove(bKey);
             }
         }
         return newPop;
@@ -161,9 +165,9 @@ public class GeneticAlgorithm {
         if (rate < 0) { rate = 0; }
         if (rate > 1) { rate = 1; }
 
-        List<Key> newPop = new ArrayList<>();
-        int j = 0;
-        for (int i = 0; i < pop.size() - 1; i++) {
+        List<Key> newPop = new ArrayList<>(pop);
+
+        for (int i = 0, j = 0; i < pop.size() - 1; i++) {
             float rndVal = rnd.nextFloat();
             if(rndVal < rate) { // passed, X is called
                 if (rndParents) {
@@ -173,8 +177,8 @@ public class GeneticAlgorithm {
                     i++;
                 }
                 List<Key> children = pop.get(i).crossOrd(pop.get(j));
-                newPop.add(children.get(0));
-                newPop.add(children.get(1));
+                newPop.set(i, children.get(0));
+                newPop.set(j, children.get(1));
             }
         }
         return newPop;

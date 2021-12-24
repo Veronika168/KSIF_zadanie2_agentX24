@@ -1,6 +1,8 @@
 package ksif.r2021.zadanie2.student.GA;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class Permutations {
 
@@ -32,5 +34,25 @@ public class Permutations {
             input[j] = tmp;
         }
     }
+
+    public static Set<String> allPasswords(int length){
+        HashSet<String> out = new HashSet<>();
+        char[] chars = new char[length];
+        for(int i =0; i< length;i++)
+            chars[i] ='a';
+        allPasswords(0, length, chars, out);
+        return out;
+    }
+    public static void allPasswords(int lvl, int maxLvl, char[] pwd, Set<String> res){
+        if(lvl == maxLvl) {
+            res.add(new String(pwd));
+        } else {
+            for (int i = 0; i < 26; i++) {
+                pwd[lvl] = (char) (i + 'a');
+                allPasswords(lvl + 1, maxLvl, pwd, res);
+            }
+        }
+    }
+
 
 }

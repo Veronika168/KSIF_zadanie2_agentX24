@@ -13,8 +13,7 @@ class GFG {
 // possible strings of length k.
 // It is mainly a wrapper over
 // recursive function printAllKLengthRec()
-    static void printAllKLength(char[] set, int k, List<String> dest)
-    {
+    static void printAllKLength(char[] set, int k, List<String> dest) {
         int n = set.length;
         printAllKLengthRec(set, "", n, k, dest);
     }
@@ -22,16 +21,11 @@ class GFG {
     // The main recursive method
 // to print all possible
 // strings of length k
-    static void printAllKLengthRec(char[] set,
-                                   String prefix,
-                                   int n, int k,
-                                   List<String> dest)
-    {
+    static void printAllKLengthRec(char[] set, String prefix, int n, int k, List<String> dest) {
 
         // Base case: k is 0,
         // print prefix
-        if (k == 0)
-        {
+        if (k == 0) {
             //System.out.println(prefix);
             dest.add(prefix);
             return;
@@ -40,8 +34,7 @@ class GFG {
         // One by one add all characters
         // from set and recursively
         // call for k equals to k-1
-        for (int i = 0; i < n; ++i)
-        {
+        for (int i = 0; i < n; ++i) {
 
             // Next character of input added
             String newPrefix = prefix + set[i];
